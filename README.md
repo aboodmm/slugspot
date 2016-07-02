@@ -7,6 +7,7 @@
 - Jared Jensen (PO) (jaanjens@ucsc.edu)
 - Eric Shi (eshi@ucsc.edu)
 - Anna Andresen (anandres@ucsc.edu)
+- Abdul Mohammed (abmmoham@ucsc.edu)
 
 ##The Idea
 
