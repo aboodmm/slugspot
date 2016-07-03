@@ -8,6 +8,7 @@
 - Eric Shi (eshi@ucsc.edu)
 - Anna Andresen (anandres@ucsc.edu)
 - Abdul Mohammed (abmmoham@ucsc.edu)
+- Esteban Quijada (eaquijad@ucsc.edu)
 
 ##The Idea
 
