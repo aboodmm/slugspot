@@ -1,4 +1,4 @@
-# UCSC 
+# Slugspot 
 
 ##Welcome, Team!
 
