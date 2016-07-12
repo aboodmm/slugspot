@@ -1,4 +1,4 @@
-package com.example.erics.slugspot;
+package xyz.jaredj.slugspot;
 
 import org.junit.Test;
 

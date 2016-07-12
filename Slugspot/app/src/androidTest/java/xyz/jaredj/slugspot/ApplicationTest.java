@@ -1,4 +1,4 @@
-package com.example.erics.slugspot;
+package xyz.jaredj.slugspot;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
