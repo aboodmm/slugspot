@@ -1,7 +1,10 @@
 package xyz.jaredj.slugspot;
 
-import android.support.v4.app.FragmentActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -14,6 +17,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +26,47 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
+        Button button1 = (Button) findViewById(R.id.button1);
+        Button about_button = (Button) findViewById(R.id.button2);
+        Button random_button = (Button) findViewById(R.id.button3);
+        Button category_button = (Button) findViewById(R.id.button4);
+        button1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Button about_button = (Button) findViewById(R.id.button2);
+                Button random_button = (Button) findViewById(R.id.button3);
+                Button category_button = (Button) findViewById(R.id.button4);
+                if (about_button.getVisibility() == View.GONE) {
+                    about_button.setVisibility(View.VISIBLE);
+                    random_button.setVisibility(View.VISIBLE);
+                    category_button.setVisibility(View.VISIBLE);
+                } else {
+                    about_button.setVisibility(View.GONE);
+                    random_button.setVisibility(View.GONE);
+                    category_button.setVisibility(View.GONE);
+                }
+
+            }
+        });
+
+        about_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(MapsActivity.this, about.class);
+                startActivity(intent);
+
+            }
+        });
+
+        category_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(MapsActivity.this, categories.class);
+                startActivity(intent);
+
+            }
+        });
     }
+
 
 
     /**
@@ -39,8 +83,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng UCSC = new LatLng(36.997793, -122.057309);
+        mMap.addMarker(new MarkerOptions().position(UCSC).title("UCSC").snippet("This is a cool university!"));
+        float zoomlevel = 16;
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(UCSC, zoomlevel));
     }
+
+
 }
+
+
+
+
