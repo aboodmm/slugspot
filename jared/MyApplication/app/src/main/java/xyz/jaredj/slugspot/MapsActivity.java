@@ -28,7 +28,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         places = (new PlaceReader()).BuildPlaces("places.txt");
-        System.out.println(places.get(0).coordinates);
 
 
     }
