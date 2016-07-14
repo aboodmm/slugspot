@@ -9,13 +9,14 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import xyz.jaredj.slugspot.PlaceTools.Place;
+import xyz.jaredj.slugspot.PlaceTools;
+
 
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-
     private GoogleMap mMap;
     ArrayList<Place> places;
     BufferedReader reader;
@@ -27,9 +28,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        places = (new PlaceReader()).BuildPlaces("places.txt");
-
-
+        try {
+            places = PlaceTools.buildPlaces(getAssets().open("places.txt"));
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -52,45 +55,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.addMarker(new MarkerOptions().position(places.get(i).coordinates).title(places.get(i).name));
         }
         mMap.moveCamera(CameraUpdateFactory.newLatLng(places.get(1).coordinates));
-
     }
-
-
-    public class Place {
-        String name;
-        LatLng coordinates;
-        String description;
-        Place(String name, LatLng coordinates, String description) {
-            this.name = name;
-            this.coordinates = coordinates;
-            this.description = description;
-        }
-    }
-
-    public class PlaceReader {
-        public ArrayList<Place> BuildPlaces(String fileName) {
-            ArrayList<Place> places = new ArrayList<Place>();
-            String str;
-            try {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(getAssets().open(fileName)));
-                String currentName;
-                double latitude;
-                double longitude;
-                String description;
-                while((str = reader.readLine()) != null && str.length() != 0) {
-                    currentName = str.replaceFirst("Name: ", "");
-                    latitude = Double.parseDouble(reader.readLine().replaceFirst("Latitude: ", ""));
-                    longitude  = Double.parseDouble(reader.readLine().replaceFirst("Longitude: ", ""));
-                    description = reader.readLine().replaceFirst("Description: ", "");
-                    //Get rid of empty line
-                    reader.readLine();
-                    places.add(new Place(currentName, new LatLng(latitude, longitude), description));
-                }
-            } catch(java.io.IOException e) {
-                e.printStackTrace();
-            }
-            return places;
-        }
-    }
-
 }
