@@ -1,24 +1,23 @@
 package xyz.jaredj.slugspot;
 
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.util.DisplayMetrics;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import xyz.jaredj.slugspot.PlaceTools.Place;
-import xyz.jaredj.slugspot.PlaceTools;
-
 
 import java.io.BufferedReader;
 import java.util.ArrayList;
 
+import xyz.jaredj.slugspot.PlaceTools.Place;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     ArrayList<Place> places;
+    ArrayList<String> categories;
     BufferedReader reader;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +32,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         } catch (java.io.IOException e) {
             e.printStackTrace();
         }
+        categories = PlaceTools.getCategories(places);
     }
 
 
@@ -46,14 +46,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * installed Google Play services and returned to the app.
      */
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(final GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        for(int i = 0; i < places.size(); i++) {
-            mMap.addMarker(new MarkerOptions().position(places.get(i).coordinates).title(places.get(i).name));
-        }
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(places.get(1).coordinates));
+        PlaceTools.displayOnMap(places, mMap);
+
+        //Get display size for padding
+        final DisplayMetrics metrics = getApplicationContext().getResources().getDisplayMetrics();
+
+        //Fit map display to points
+        PlaceTools.fitMapToPoints(places, mMap, metrics.widthPixels, metrics.heightPixels, Math.max(metrics.widthPixels, metrics.heightPixels)/10);
     }
 }
