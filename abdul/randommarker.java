@@ -8,7 +8,6 @@ import java.util.Random;
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
         ArrayList markers = new ArrayList<Marker>();
         LatLng sydney = new LatLng(-34, 151);
         LatLng sanfran = new LatLng(38, -122);
