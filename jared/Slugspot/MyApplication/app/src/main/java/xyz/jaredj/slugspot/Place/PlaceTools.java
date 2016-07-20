@@ -24,6 +24,12 @@ public class PlaceTools {
         fitMapToPoints(places, map, 0);
     }
 
+    /**
+     * Zooms a given map out to fit the given place list
+     * @param places a list of places
+     * @param map a map to zoom
+     * @param padding amount of padding to give
+     */
     public static void fitMapToPoints(ArrayList<Place> places, GoogleMap map, int padding) {
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
         for (Place place : places) {
@@ -35,6 +41,7 @@ public class PlaceTools {
     }
 
     /**
+     * Zooms out the map to fit a list of places.
      * This is necessary when initiating the map the first time.
      * @param places list of places
      * @param map the map to update
@@ -51,10 +58,22 @@ public class PlaceTools {
         map.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding));
     }
 
+    /**
+     * Zooms out the map to fit a list of places.
+     * This is necessary then initiating the map the first time.
+     * @param places
+     * @param map
+     * @param display
+     */
     public static void fitMapToPoints(ArrayList<Place> places, GoogleMap map, DisplayMetrics display) {
         fitMapToPoints(places, map, display.widthPixels, display.heightPixels, Math.max(display.widthPixels, display.heightPixels)/10);
     }
 
+    /**
+     * Displays a list of places on a map
+     * @param places a list of places
+     * @param map a map to display on
+     */
     public static void displayOnMap(ArrayList<Place> places, GoogleMap map) {
         map.clear();
         for (Place place : places) {

@@ -37,8 +37,11 @@ public class PlaceList extends ArrayList<Place> {
      * Description: Bar Qux Corge Grault
      * Categories: Grault, Garply, Waldo, Fred
      *
+     * Name: Bar
+     * ...
      *
-     * @param dataFile
+     *
+     * @param dataFile an inputStream of the text to be read
      */
     public PlaceList(InputStream dataFile) {
         super();
@@ -110,6 +113,26 @@ public class PlaceList extends ArrayList<Place> {
         return new ArrayList<String>(categories);
     }
 
+    /**
+     *
+     * @param category the category you would like to search for
+     * @return A list of places matching that category
+     */
+    public PlaceList getCategory(String category) {
+        PlaceList list = new PlaceList();
+        for (Place place : this) {
+            if (place.categories.contains(category)) {
+                list.add(place);
+            }
+        }
+        return list;
+    }
+
+    /**
+     * Searches through the place list, finds name, description, or category associated with the term
+     * @param term The term to search for
+     * @return A list of places matching the term
+     */
     public PlaceList search(String term) {
         PlaceList results = new PlaceList();
         for (Place place : this) {

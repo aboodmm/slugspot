@@ -5,7 +5,7 @@ import com.google.android.gms.maps.model.LatLng;
 import java.util.ArrayList;
 
 /**
- * Created by jaredjensen on 7/19/16.
+ * Keeps track of things related to a place
  */
 public class Place {
     public String name;
