@@ -7,16 +7,17 @@ import android.util.DisplayMetrics;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.BufferedReader;
 import java.util.ArrayList;
 
+import xyz.jaredj.slugspot.PlaceTools;
 import xyz.jaredj.slugspot.PlaceTools.Place;
+import xyz.jaredj.slugspot.PlaceTools.PlaceList;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
-    ArrayList<Place> places;
+    PlaceList places;
     ArrayList<String> categories;
     BufferedReader reader;
     @Override
@@ -28,11 +29,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         try {
-            places = PlaceTools.buildPlaces(getAssets().open("places.txt"));
+            places = new PlaceList(getAssets().open("places.txt"));
         } catch (java.io.IOException e) {
             e.printStackTrace();
         }
-        categories = PlaceTools.getCategories(places);
     }
 
 
@@ -52,7 +52,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         PlaceTools.displayOnMap(places, mMap);
 
         //Get display size for padding
-        final DisplayMetrics metrics = getApplicationContext().getResources().getDisplayMetrics();
+        DisplayMetrics metrics = getApplicationContext().getResources().getDisplayMetrics();
 
         //Fit map display to points
         PlaceTools.fitMapToPoints(places, mMap, metrics.widthPixels, metrics.heightPixels, Math.max(metrics.widthPixels, metrics.heightPixels)/10);
