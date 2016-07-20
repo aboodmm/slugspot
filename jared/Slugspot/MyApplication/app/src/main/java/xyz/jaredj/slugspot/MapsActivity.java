@@ -11,9 +11,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 import java.io.BufferedReader;
 import java.util.ArrayList;
 
-import xyz.jaredj.slugspot.PlaceTools;
-import xyz.jaredj.slugspot.PlaceTools.Place;
-import xyz.jaredj.slugspot.PlaceTools.PlaceList;
+import xyz.jaredj.slugspot.Place.Place;
+import xyz.jaredj.slugspot.Place.PlaceList;
+import xyz.jaredj.slugspot.Place.PlaceTools;
+
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
@@ -25,9 +26,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        //Open and read places file
         try {
             places = new PlaceList(getAssets().open("places.txt"));
         } catch (java.io.IOException e) {
@@ -39,8 +41,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
+     * This is where we can add markers or lines, add listeners or move the camera.
      * If Google Play services is not installed on the device, the user will be prompted to install
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
@@ -48,13 +49,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(final GoogleMap googleMap) {
         mMap = googleMap;
-
         PlaceTools.displayOnMap(places, mMap);
 
         //Get display size for padding
-        DisplayMetrics metrics = getApplicationContext().getResources().getDisplayMetrics();
+       DisplayMetrics metrics = getApplicationContext().getResources().getDisplayMetrics();
 
         //Fit map display to points
-        PlaceTools.fitMapToPoints(places, mMap, metrics.widthPixels, metrics.heightPixels, Math.max(metrics.widthPixels, metrics.heightPixels)/10);
+        PlaceTools.fitMapToPoints(places, mMap, metrics);
+        for (String category : places.get(0).categories) {
+            System.out.println(category);
+        }
+        System.out.println("Hello");
     }
 }
