@@ -22,4 +22,14 @@ Name: Merrill Gardens
 Latitude: 36.998806 
 Longitude: -122.052518
 Description: Hello This Is Merrill Gardens
+
+Name: Cat Shrine
+Latitude: 37.007319
+Longitude: 122.056285
+Description: snasodnf
+
+Name: Totem Pole
+Latitude: 37.007441
+Longitude: 122.056277
+Description: sndkasoik
 //LAST LINE INTENTIONALLY LEFT EMPTY
