@@ -56,9 +56,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //Fit map display to points
         PlaceTools.fitMapToPoints(places, mMap, metrics);
-        for (String category : places.get(0).categories) {
-            System.out.println(category);
-        }
-        System.out.println("Hello");
     }
 }
