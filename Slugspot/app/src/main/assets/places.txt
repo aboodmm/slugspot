@@ -25,7 +25,7 @@ Description: Merrill gardens is one of the many gardens at UCSC that grow a wide
 
 Name: Cat Shrine
 Latitude: 37.007319
-Longitude: 122.056285
+Longitude: -122.056285
 Description: The Cat Shrine is a sacred circle, dedicated to those who love and honor cats. Woven branches create the circle between two redwood trees, where the bodies of the cats, owned by the family who began the circle, reside. The circle also contains an open journal and cat figurines. Come here to leave writings and art honouring cats.
 
 Name: Totem Pole
