@@ -1,35 +1,34 @@
 Name: Garden of Eden
 Latitude: 37.02461
 Longitude: -122.0577
-Description: Hello This Is Garden Of Eden
-Categories: Chill Spot, Test Area, Idk My Bff Jill
+Description:  A beautiful secluded area, surrounded by trees where you can go swimming, relax by the small beach or jump from cliffs. Follow the railroad tracks to get there!
 
 Name: Koi Pond
 Latitude: 37.000203
 Longitude: -122.048259
-Description: Hello This Is Koi Pond
+Description: A cement-lined square pond by the base of a big redwood fed by a natural spring with koi fish. Spend time peering into the blue-green depths of the water and watch the fish splashing around. Get there by following the spring trail and follow the path a little off the right. It’s unmarked, but listen for the sound of water to get here.
 
 Name: Lime Kilns
 Latitude: 37.000811
 Longitude: -122.049084
-Description: Hello This Is Lime Kilns
+Description: These kilns used to bake marble until it formed lime in a powdered form that could be shipped all over the country. Most of the lime that was created here, was used for construction in masonry structures such as foundations, fireplaces, walls and brick and stone buildings. To get there, walk t the intersection of Spring Box and Lime Kiln Trail and turn right.
 
 Name: Stacked Rocks
 Latitude: 37.001010
 Longitude: -122.049529
-Description: Hello This Is Stacked Rocks
+Description: This secluded place features rocks that are precariously stacked on top of one another. These balanced rock sculptures and creative patterns provide a place where you can write down your wishes for your life and hide them somewhere in the area. Come here to try the act of rock balancing as a useful way to deal with stress or leave a piece of paper with your wishes for life.
 
 Name: Merrill Gardens
 Latitude: 36.998806 
 Longitude: -122.052518
-Description: Hello This Is Merrill Gardens
+Description: Merrill gardens is one of the many gardens at UCSC that grow a wide variety of fruits and vegetables, including apples, pears and strawberries. Come here during one of the advertised times to get your food directly from the garden or come here to wander around and listen to the buzz of bees and enjoy the scent of flowers!
 
 Name: Cat Shrine
 Latitude: 37.007319
-Longitude: -122.056285
-Description: snasodnf
+Longitude: 122.056285
+Description: The Cat Shrine is a sacred circle, dedicated to those who love and honor cats. Woven branches create the circle between two redwood trees, where the bodies of the cats, owned by the family who began the circle, reside. The circle also contains an open journal and cat figurines. Come here to leave writings and art honouring cats.
 
 Name: Totem Pole
 Latitude: 37.007441
-Longitude: -122.056277
-Description: sndkasoik
+Longitude: 122.056277
+Description: The Totem Pole is located within a sacred circle which has 4 direction altars. The circle “Caer Ellillon” was created by the Coven Coil Sidhe (CCS), a small Wiccan coven in Santa Cruz in the early 1990s. It is located in the UCSC upper Campus, next to the Cat Shrine. Come here to see the totem pole that is still being used by current CCS members! 
