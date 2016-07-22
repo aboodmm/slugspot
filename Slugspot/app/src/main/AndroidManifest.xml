@@ -37,7 +37,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Place.CategoriesPage" >
+        <activity android:name=".CategoriesPage" >
         </activity>
     </application>
 

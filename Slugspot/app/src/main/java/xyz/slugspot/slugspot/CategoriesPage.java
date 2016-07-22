@@ -1,4 +1,4 @@
-package xyz.slugspot.slugspot.Place;
+package xyz.slugspot.slugspot;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
