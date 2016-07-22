@@ -1,0 +1,35 @@
+Name: Garden of Eden
+Latitude: 37.02461
+Longitude: -122.0577
+Description: Hello This Is Garden Of Eden
+Categories: Chill Spot, Test Area, Idk My Bff Jill
+
+Name: Koi Pond
+Latitude: 37.000203
+Longitude: -122.048259
+Description: Hello This Is Koi Pond
+
+Name: Lime Kilns
+Latitude: 37.000811
+Longitude: -122.049084
+Description: Hello This Is Lime Kilns
+
+Name: Stacked Rocks
+Latitude: 37.001010
+Longitude: -122.049529
+Description: Hello This Is Stacked Rocks
+
+Name: Merrill Gardens
+Latitude: 36.998806 
+Longitude: -122.052518
+Description: Hello This Is Merrill Gardens
+
+Name: Cat Shrine
+Latitude: 37.007319
+Longitude: -122.056285
+Description: snasodnf
+
+Name: Totem Pole
+Latitude: 37.007441
+Longitude: -122.056277
+Description: sndkasoik
