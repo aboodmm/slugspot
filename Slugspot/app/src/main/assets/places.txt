@@ -30,5 +30,5 @@ Description: The Cat Shrine is a sacred circle, dedicated to those who love and 
 
 Name: Totem Pole
 Latitude: 37.007441
-Longitude: 122.056277
+Longitude: -122.056277
 Description: The Totem Pole is located within a sacred circle which has 4 direction altars. The circle “Caer Ellillon” was created by the Coven Coil Sidhe (CCS), a small Wiccan coven in Santa Cruz in the early 1990s. It is located in the UCSC upper Campus, next to the Cat Shrine. Come here to see the totem pole that is still being used by current CCS members! 
