@@ -3,4 +3,62 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="The -A- Team:"
+        android:textStyle="bold"
+        android:textSize="60sp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Jared Jensen(PO)"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Eric Shi(member)"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Anna Andresen(member)"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Esteban Quijada(member)"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Abdul Mohamed(member)"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="______________________________"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        />
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo" />
+    
+
 </LinearLayout>
