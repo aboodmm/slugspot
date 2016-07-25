@@ -22,6 +22,7 @@ public class Place {
         this.coordinates = coordinates;
         this.description = description;
         this.categories = categories;
+        this.categories.add("All");
     }
 
     @Override

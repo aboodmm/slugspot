@@ -31,6 +31,8 @@ public class PlaceTools {
      * @param padding amount of padding to give
      */
     public static void fitMapToPoints(ArrayList<Place> places, GoogleMap map, int padding) {
+        if(places.isEmpty())
+            return;
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
         for (Place place : places) {
             builder.include(place.coordinates);
@@ -50,6 +52,8 @@ public class PlaceTools {
      * @param padding padding (in pixels)
      */
     public static void fitMapToPoints(ArrayList<Place> places, GoogleMap map, int width, int height, int padding) {
+        if(places.isEmpty())
+            return;
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
         for (Place place : places) {
             builder.include(place.coordinates);
@@ -79,5 +83,10 @@ public class PlaceTools {
         for (Place place : places) {
             map.addMarker(new MarkerOptions().position(place.coordinates).title(place.name).snippet(place.description));
         }
+    }
+
+    public static void displayOnMap(Place place, GoogleMap map) {
+        map.clear();
+        map.addMarker(new MarkerOptions().position(place.coordinates).title(place.name).snippet(place.description));
     }
 }

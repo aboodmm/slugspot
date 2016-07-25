@@ -6,13 +6,20 @@ import android.util.DisplayMetrics;
 import android.widget.Button;
 import android.view.View;
 import android.content.Intent;
+import android.widget.SearchView;
 
+import xyz.slugspot.slugspot.CategoriesPage;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
+import java.util.Random;
 
+import xyz.slugspot.slugspot.Place.Place;
 import xyz.slugspot.slugspot.Place.PlaceList;
 import xyz.slugspot.slugspot.Place.PlaceTools;
 
@@ -21,6 +28,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     PlaceList places;
     ArrayList<String> categories;
+    DisplayMetrics display;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +37,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        //Get display for padding
+        display = getApplicationContext().getResources().getDisplayMetrics();
 
         Button button1= (Button) findViewById(R.id.button1);
         Button about_button= (Button) findViewById(R.id.button2);
@@ -52,6 +64,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
+        SearchView searchBar = (SearchView) findViewById(R.id.searchView);
+        searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                PlaceList searchedPlaces = places.search(s);
+                System.out.println(searchedPlaces);
+                PlaceTools.displayOnMap(searchedPlaces, mMap);
+                System.out.println("Displayed on map");
+                PlaceTools.fitMapToPoints(searchedPlaces, mMap, display);
+                System.out.println("Fit to points");
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return true;
+            }
+        });
+
+
+        //ABOUT BUTTON
         about_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(MapsActivity.this, about.class);
@@ -60,11 +93,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
+        //CATEGORIES BUTTON
         category_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(MapsActivity.this, CategoriesPage.class);
-                startActivity(intent);
+                String[] categories = places.getCategories().toArray(new String[places.getCategories().size()]);
+                intent.putExtra("Categories", categories);
+                startActivityForResult(intent, 0);
+            }
+        });
 
+        //RANDOM BUTTON
+        random_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Random mrand = new Random();
+                int index = mrand.nextInt(places.size());
+                Place found = places.get(index);
+                LatLng fpos = found.coordinates;
+                PlaceTools.displayOnMap(found, mMap);
+                mMap.animateCamera(CameraUpdateFactory.newLatLng(fpos));
             }
         });
 
@@ -87,14 +135,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(final GoogleMap googleMap) {
-        System.out.println(places);
         mMap = googleMap;
         PlaceTools.displayOnMap(places, mMap);
 
-        //Get display size for padding
-        DisplayMetrics metrics = getApplicationContext().getResources().getDisplayMetrics();
-
         //Fit map display to points
-        PlaceTools.fitMapToPoints(places, mMap, metrics);
+        PlaceTools.fitMapToPoints(places, mMap, display);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == 0) {
+            String category = data.getStringExtra("Category Chosen");
+            PlaceList categoryList = places.getCategory(category);
+            PlaceTools.displayOnMap(categoryList, mMap);
+            PlaceTools.fitMapToPoints(categoryList, mMap, display);
+        }
     }
 }

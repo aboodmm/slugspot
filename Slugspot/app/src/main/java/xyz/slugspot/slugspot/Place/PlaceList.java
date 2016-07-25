@@ -132,15 +132,19 @@ public class PlaceList extends ArrayList<Place> {
      * @return A list of places matching the term
      */
     public PlaceList search(String term) {
+        if (term == "")
+            return this;
         PlaceList results = new PlaceList();
+        term = term.toLowerCase();
         for (Place place : this) {
-            if (place.name.contains(term) || place.description.contains(term))
+            if (place.name.toLowerCase().contains(term) || place.description.toLowerCase().contains(term))
                 results.add(place);
             else
                 for (String category : place.categories)
-                    if (category.contains(term))
+                    if (category.toLowerCase().contains(term))
                         results.add(place);
         }
+
         return results;
     }
 }
