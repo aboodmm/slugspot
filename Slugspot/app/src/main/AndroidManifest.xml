@@ -37,6 +37,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".about"
+            android:label="about"></activity>activity>
+        <activity android:name=".CategoriesPage" >
+        </activity>
     </application>
 
 </manifest>
