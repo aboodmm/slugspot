@@ -27,7 +27,6 @@ import xyz.slugspot.slugspot.Place.PlaceTools;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     PlaceList places;
-    ArrayList<String> categories;
     DisplayMetrics display;
 
     @Override
