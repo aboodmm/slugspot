@@ -27,6 +27,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,10 +42,11 @@ import java.util.Random;
 
 import xyz.slugspot.slugspot.Place.Place;
 import xyz.slugspot.slugspot.Place.PlaceList;
+import xyz.slugspot.slugspot.Place.PlaceNotFoundException;
 import xyz.slugspot.slugspot.Place.PlaceTools;
 
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
 
     private GoogleMap mMap;
@@ -90,7 +92,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
                 // Request a string response from the provided URL.
-                String URL = "http://169.233.251.168:8080/rating/1";
+                String URL = "http://104.198.96.100:8080/rating/1";
 
                 // prepare the Request
                 JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
@@ -101,6 +103,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 // display response
                                 try {
                                     Double x = (Double) response.get("rating");
+                                    System.out.println("Go rating:" + x);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -204,6 +207,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //Fit map display to points
         PlaceTools.fitMapToPoints(places, mMap, display);
+
+        mMap.setOnInfoWindowClickListener(this);
+    }
+
+    public void onInfoWindowClick(Marker marker){
+        Intent intent = new Intent(MapsActivity.this, description.class);
+        try {
+            String descriptions = places.getPlace(marker.getTitle()).description;
+        } catch (PlaceNotFoundException e) {
+            e.printStackTrace();
+        }
+        Place markerPlace;
+        try {
+            markerPlace = places.getPlace(marker.getTitle());
+        } catch (PlaceNotFoundException e) {
+            e.printStackTrace();
+            markerPlace = new Place("", new LatLng(0,0), "");
+        }
+        intent.putExtra("Name", markerPlace.name);
+        intent.putExtra("Description", markerPlace.description);
+        System.out.println(markerPlace.description);
+        String[] pictureList = new String[markerPlace.categories.size()];
+        markerPlace.categories.toArray(pictureList);
+        intent.putExtra("Pictures", pictureList);
+        //intent.putExtra("Descriptions", descriptions);
+        startActivity(intent);
+
     }
 
     public final int CATEGORY_REQUEST = 0;

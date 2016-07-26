@@ -96,7 +96,7 @@ public class PlaceList extends ArrayList<Place> {
      */
     public Place getPlace(String name) throws PlaceNotFoundException {
         for (Place place : this) {
-            if (place.name == name) {
+            if (place.name.equals(name)) {
                 return place;
             }
         }
