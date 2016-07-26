@@ -32,7 +32,7 @@ public class CategoriesPage extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String item = ((TextView) view).getText().toString();
                 getIntent().putExtra("Category Chosen", item);
-                setResult(0, getIntent());
+                setResult(RESULT_OK, getIntent());
                 finish();
             }
         });

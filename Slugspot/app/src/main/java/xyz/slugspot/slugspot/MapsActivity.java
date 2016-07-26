@@ -45,6 +45,8 @@ import xyz.slugspot.slugspot.Place.PlaceTools;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+
+
     private GoogleMap mMap;
     PlaceList places;
     DisplayMetrics display;
@@ -99,7 +101,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 // display response
                                 try {
                                     Double x = (Double) response.get("rating");
-                                    System.out.println("Response " + x);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -126,9 +127,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 PlaceList searchedPlaces = places.search(s);
                 System.out.println(searchedPlaces);
                 PlaceTools.displayOnMap(searchedPlaces, mMap);
-                System.out.println("Displayed on map");
                 PlaceTools.fitMapToPoints(searchedPlaces, mMap, display);
-                System.out.println("Fit to points");
                 return true;
             }
 
@@ -161,7 +160,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Intent intent = new Intent(MapsActivity.this, CategoriesPage.class);
                 String[] categories = places.getCategories().toArray(new String[places.getCategories().size()]);
                 intent.putExtra("Categories", categories);
-                startActivityForResult(intent, 0);
+                startActivityForResult(intent, CATEGORY_REQUEST);
             }
         });
 
@@ -207,14 +206,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         PlaceTools.fitMapToPoints(places, mMap, display);
     }
 
+    public final int CATEGORY_REQUEST = 0;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == 0) {
-            String category = data.getStringExtra("Category Chosen");
-            PlaceList categoryList = places.getCategory(category);
-            PlaceTools.displayOnMap(categoryList, mMap);
-            PlaceTools.fitMapToPoints(categoryList, mMap, display);
+        //System.out.println(requestCode + " " + resultCode);
+        switch(requestCode) {
+            case CATEGORY_REQUEST:
+                if (resultCode == RESULT_OK) {
+                    String category = data.getStringExtra("Category Chosen");
+                    PlaceList categoryList = places.getCategory(category);
+                    PlaceTools.displayOnMap(categoryList, mMap);
+                    PlaceTools.fitMapToPoints(categoryList, mMap, display);
+                }
+                break;
         }
+
     }
 
     @Override
