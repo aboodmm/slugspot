@@ -1,5 +1,6 @@
 package xyz.slugspot.slugspot;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.DisplayMetrics;
@@ -10,12 +11,16 @@ import android.widget.SearchView;
 
 import xyz.slugspot.slugspot.CategoriesPage;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -28,6 +33,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     PlaceList places;
     DisplayMetrics display;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,24 +50,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //Get display for padding
         display = getApplicationContext().getResources().getDisplayMetrics();
 
-        Button button1= (Button) findViewById(R.id.button1);
-        Button about_button= (Button) findViewById(R.id.button2);
-        Button random_button= (Button) findViewById(R.id.button3);
-        Button category_button= (Button) findViewById(R.id.button4);
+        final Button button1 = (Button) findViewById(R.id.button1);
+        final Button about_button = (Button) findViewById(R.id.button2);
+        final Button random_button = (Button) findViewById(R.id.button3);
+        final Button category_button = (Button) findViewById(R.id.button4);
+        final Button all_button = (Button) findViewById(R.id.button5);
         button1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Button about_button= (Button) findViewById(R.id.button2);
-                Button random_button= (Button) findViewById(R.id.button3);
-                Button category_button= (Button) findViewById(R.id.button4);
-                if(about_button.getVisibility()==View.GONE){
+                if (about_button.getVisibility() == View.GONE) {
                     about_button.setVisibility(View.VISIBLE);
                     random_button.setVisibility(View.VISIBLE);
                     category_button.setVisibility(View.VISIBLE);
-                }
-                else{
+                    all_button.setVisibility(View.VISIBLE);
+                } else {
                     about_button.setVisibility(View.GONE);
                     random_button.setVisibility(View.GONE);
                     category_button.setVisibility(View.GONE);
+                    all_button.setVisibility(View.GONE);
                 }
 
             }
@@ -82,6 +91,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
+        //ALL BUTTON
+        all_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PlaceTools.displayOnMap(places, mMap);
+                PlaceTools.fitMapToPoints(places, mMap, display);
+            }
+        });
 
         //ABOUT BUTTON
         about_button.setOnClickListener(new View.OnClickListener() {
@@ -118,9 +135,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //Open and read places file
         try {
             places = new PlaceList(getAssets().open("places.txt"));
-        } catch (java.io.IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
 
@@ -143,11 +163,51 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == 0) {
+        if (resultCode == 0) {
             String category = data.getStringExtra("Category Chosen");
             PlaceList categoryList = places.getCategory(category);
             PlaceTools.displayOnMap(categoryList, mMap);
             PlaceTools.fitMapToPoints(categoryList, mMap, display);
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Maps Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app URL is correct.
+                Uri.parse("android-app://xyz.slugspot.slugspot/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client, viewAction);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Maps Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app URL is correct.
+                Uri.parse("android-app://xyz.slugspot.slugspot/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
+        client.disconnect();
     }
 }

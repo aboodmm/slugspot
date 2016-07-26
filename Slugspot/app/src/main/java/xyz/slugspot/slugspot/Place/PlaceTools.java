@@ -5,6 +5,7 @@ import android.util.DisplayMetrics;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
@@ -81,12 +82,12 @@ public class PlaceTools {
     public static void displayOnMap(ArrayList<Place> places, GoogleMap map) {
         map.clear();
         for (Place place : places) {
-            map.addMarker(new MarkerOptions().position(place.coordinates).title(place.name).snippet(place.description));
+            Marker m = map.addMarker(new MarkerOptions().position(place.coordinates).title(place.name).snippet(place.description));
         }
     }
 
     public static void displayOnMap(Place place, GoogleMap map) {
         map.clear();
-        map.addMarker(new MarkerOptions().position(place.coordinates).title(place.name).snippet(place.description));
+        map.addMarker(new MarkerOptions().position(place.coordinates).title(place.name).snippet(place.description)).showInfoWindow();
     }
 }

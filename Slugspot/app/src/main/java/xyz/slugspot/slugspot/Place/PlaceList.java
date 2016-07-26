@@ -144,7 +144,6 @@ public class PlaceList extends ArrayList<Place> {
                     if (category.toLowerCase().contains(term))
                         results.add(place);
         }
-
         return results;
     }
 }

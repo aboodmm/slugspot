@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:background="#359c5e"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
         android:padding="8dp"
         android:layout_margin="5dp"
         android:text="go"
@@ -70,6 +70,21 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_above="@+id/button3"
+        android:layout_alignStart="@+id/button1"
+        android:onClick="onClick" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#359c5e"
+        android:padding="8dp"
+        android:text="ALL"
+        android:textColor="#ffffff"
+        android:visibility="gone"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_above="@+id/button4"
         android:layout_alignStart="@+id/button1"
         android:onClick="onClick" />
 
