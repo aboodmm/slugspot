@@ -60,7 +60,7 @@ public class PlaceTools {
             builder.include(place.coordinates);
         }
         LatLngBounds bounds = builder.build();
-        map.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding));
+        map.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding));
     }
 
     /**

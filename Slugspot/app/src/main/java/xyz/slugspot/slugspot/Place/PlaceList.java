@@ -51,6 +51,7 @@ public class PlaceList extends ArrayList<Place> {
             double longitude = 0;
             String description = "";
             ArrayList<String> categories = new ArrayList<String>();
+            ArrayList<String> pictures = new ArrayList<String>();
             while ((str = reader.readLine()) != null) {
                 String[] words = str.split(" ", 2);
                 //System.out.println("");
@@ -68,9 +69,10 @@ public class PlaceList extends ArrayList<Place> {
                         description = words[1];
                         break;
                     case "Categories:":
-                        List<String> x = Arrays.asList(words[1].split(", "));
                         categories.addAll(Arrays.asList(words[1].split(", ")));
                         break;
+                    case "Images:":
+                        pictures.addAll(Arrays.asList(words[1].split(", ")));
                     case "":
                         this.add(new Place(currentName, new LatLng(latitude, longitude), description, categories));
                         currentName = "";
@@ -78,6 +80,8 @@ public class PlaceList extends ArrayList<Place> {
                         longitude = 0;
                         description = "";
                         categories = new ArrayList<String>();
+                        pictures = new ArrayList<String>();
+                        break;
                 }
             }
         } catch (java.io.IOException e) {

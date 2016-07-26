@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.widget.Button;
 import android.view.View;
 import android.content.Intent;
@@ -11,6 +12,13 @@ import android.widget.SearchView;
 
 import xyz.slugspot.slugspot.CategoriesPage;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -20,7 +28,14 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -38,7 +53,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-
+    RequestQueue queue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,12 +64,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //Get display for padding
         display = getApplicationContext().getResources().getDisplayMetrics();
+        queue = Volley.newRequestQueue(this);
 
         final Button button1 = (Button) findViewById(R.id.button1);
         final Button about_button = (Button) findViewById(R.id.button2);
         final Button random_button = (Button) findViewById(R.id.button3);
         final Button category_button = (Button) findViewById(R.id.button4);
         final Button all_button = (Button) findViewById(R.id.button5);
+        //Go button
         button1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (about_button.getVisibility() == View.GONE) {
@@ -69,6 +86,36 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     all_button.setVisibility(View.GONE);
                 }
 
+
+                // Request a string response from the provided URL.
+                String URL = "http://169.233.251.168:8080/rating/1";
+
+                // prepare the Request
+                JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
+                        new Response.Listener<JSONObject>()
+                        {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                // display response
+                                try {
+                                    Double x = (Double) response.get("rating");
+                                    System.out.println("Response " + x);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        },
+
+                        new Response.ErrorListener()
+                        {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                System.out.println("Error.Response " + error.getLocalizedMessage());
+                            }
+                        }
+                );
+                // Add the request to the RequestQueue.
+                queue.add(getRequest);
             }
         });
 
@@ -105,7 +152,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View v) {
                 Intent intent = new Intent(MapsActivity.this, about.class);
                 startActivity(intent);
-
             }
         });
 

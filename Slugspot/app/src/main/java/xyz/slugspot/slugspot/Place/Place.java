@@ -12,6 +12,7 @@ public class Place {
     public LatLng coordinates;
     public String description;
     public ArrayList<String> categories;
+    public ArrayList<String> pictures;
 
     public Place(String name, LatLng coordinates, String description) {
         this(name, coordinates, description, new ArrayList<String>());
